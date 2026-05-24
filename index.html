@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI with Python Virtual Lab</title>
+  <meta name="description" content="GitHub Pages ready Virtual Lab for AI, Machine Learning, Deep Learning and Python.">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg sticky-top glass-nav border-bottom border-info-subtle">
+    <div class="container-fluid px-3 px-lg-4">
+      <a class="navbar-brand fw-bold text-gradient" href="#"><i class="bi bi-cpu"></i> AI with Python Virtual Lab</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNav"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="topNav">
+        <ul class="navbar-nav ms-auto gap-lg-2">
+          <li class="nav-item"><a class="nav-link" href="#labs"><i class="bi bi-grid-3x3-gap"></i> Labs</a></li>
+          <li class="nav-item"><a class="nav-link" href="#manual"><i class="bi bi-journal-text"></i> Manual</a></li>
+          <li class="nav-item"><a class="nav-link" href="#deploy"><i class="bi bi-github"></i> Deploy</a></li>
+          <li class="nav-item"><button class="btn btn-sm btn-outline-info ms-lg-2" id="resetProgress"><i class="bi bi-arrow-counterclockwise"></i> Reset</button></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero py-5">
+    <div class="container py-4">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-8">
+          <span class="badge rounded-pill text-bg-info mb-3">Semester V • Static GitHub Pages Lab</span>
+          <h1 class="display-5 fw-bold lh-1 mb-3">Interactive Virtual Lab for AI, ML, Deep Learning and Python</h1>
+          <p class="lead text-secondary-light mb-4">A browser-only lab portal with searchable experiments, demos, viva questions, quizzes, printable manual and local progress tracking.</p>
+          <div class="d-flex flex-wrap gap-2">
+            <a class="btn btn-info btn-lg shadow-glow" href="#labs"><i class="bi bi-play-circle"></i> Start Labs</a>
+            <button class="btn btn-outline-light btn-lg" onclick="window.print()"><i class="bi bi-printer"></i> Print Manual</button>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="hero-card glass-card p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h5 class="mb-0">Course Progress</h5>
+              <span class="badge text-bg-success" id="progressBadge">0%</span>
+            </div>
+            <div class="progress rounded-pill mb-3" role="progressbar" aria-label="course progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated" id="progressBar" style="width:0%"></div>
+            </div>
+            <div class="row text-center g-2">
+              <div class="col-4"><div class="stat"><strong id="totalLabs">0</strong><span>Labs</span></div></div>
+              <div class="col-4"><div class="stat"><strong id="doneLabs">0</strong><span>Done</span></div></div>
+              <div class="col-4"><div class="stat"><strong>6</strong><span>Units</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container pb-5">
+    <section class="row g-3 mb-4" id="unitStats"></section>
+
+    <section class="glass-card p-3 p-lg-4 mb-4" id="labs">
+      <div class="d-flex flex-column flex-lg-row justify-content-between gap-3 mb-3">
+        <div>
+          <h2 class="h3 mb-1"><i class="bi bi-flask"></i> Virtual Experiments</h2>
+          <p class="text-secondary-light mb-0">Search labs by unit, algorithm, application or library.</p>
+        </div>
+        <div class="d-flex flex-wrap gap-2 controls">
+          <input class="form-control" id="searchBox" placeholder="Search: KNN, regression, ethics...">
+          <select class="form-select" id="unitFilter"><option value="all">All Units</option></select>
+          <select class="form-select" id="typeFilter"><option value="all">All Types</option></select>
+        </div>
+      </div>
+      <div class="row g-3" id="labGrid"></div>
+      <div class="text-center py-5 d-none" id="emptyState">
+        <i class="bi bi-search display-4 text-info"></i>
+        <h4 class="mt-3">No lab found</h4>
+        <p class="text-secondary-light">Try another keyword or reset filters.</p>
+      </div>
+    </section>
+
+    <section class="glass-card p-3 p-lg-4 mb-4" id="manual">
+      <div class="d-flex flex-column flex-lg-row justify-content-between gap-3 align-items-lg-center">
+        <div>
+          <h2 class="h3 mb-1"><i class="bi bi-journal-check"></i> Printable Lab Manual</h2>
+          <p class="text-secondary-light mb-0">Open any experiment and use the print button for a full lab manual page.</p>
+        </div>
+        <button class="btn btn-outline-info" onclick="window.print()"><i class="bi bi-download"></i> Print / Save as PDF</button>
+      </div>
+      <div class="manual-list mt-3" id="manualList"></div>
+    </section>
+
+    <section class="glass-card p-3 p-lg-4" id="deploy">
+      <h2 class="h3"><i class="bi bi-github"></i> GitHub Pages Deployment</h2>
+      <div class="row g-3 mt-1">
+        <div class="col-md-3"><div class="deploy-step"><b>1</b><span>Create a GitHub repository</span></div></div>
+        <div class="col-md-3"><div class="deploy-step"><b>2</b><span>Upload this folder content</span></div></div>
+        <div class="col-md-3"><div class="deploy-step"><b>3</b><span>Go to Settings → Pages</span></div></div>
+        <div class="col-md-3"><div class="deploy-step"><b>4</b><span>Select branch main / root</span></div></div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal fade" id="labModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+      <div class="modal-content glass-modal">
+        <div class="modal-header border-info-subtle">
+          <div>
+            <span class="badge text-bg-info" id="modalUnit"></span>
+            <h3 class="modal-title mt-2" id="modalTitle">Lab</h3>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <ul class="nav nav-pills gap-2 mb-3" id="labTabs" role="tablist">
+            <li class="nav-item"><button class="nav-link active" data-bs-toggle="pill" data-bs-target="#tabOverview" type="button">Overview</button></li>
+            <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#tabDemo" type="button">Interactive Demo</button></li>
+            <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#tabPython" type="button">Python Code</button></li>
+            <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#tabViva" type="button">Viva + Quiz</button></li>
+            <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#tabManual" type="button">Manual</button></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane fade show active" id="tabOverview"></div>
+            <div class="tab-pane fade" id="tabDemo"></div>
+            <div class="tab-pane fade" id="tabPython"></div>
+            <div class="tab-pane fade" id="tabViva"></div>
+            <div class="tab-pane fade" id="tabManual"></div>
+          </div>
+        </div>
+        <div class="modal-footer border-info-subtle">
+          <button class="btn btn-outline-light" onclick="window.print()"><i class="bi bi-printer"></i> Print</button>
+          <button class="btn btn-success" id="completeBtn"><i class="bi bi-check2-circle"></i> Mark as Completed</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <template id="trinketTemplate">
+    <div class="ratio ratio-16x9 rounded-4 overflow-hidden border border-info-subtle">
+      <iframe src="https://trinket.io/embed/python3" title="Python online compiler placeholder" loading="lazy"></iframe>
+    </div>
+  </template>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
